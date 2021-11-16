@@ -9,11 +9,13 @@ namespace VegetableShop.Domain.Models
 {
     public class Review
     {
-        public Guid AccountId { get; set; }
-        [ForeignKey(nameof(AccountId))]
-        public virtual Account Account { get; set; }
+        public int OrderId { get; set; }
+        [ForeignKey(nameof(OrderId))]
+        public virtual Order Order { get; set; }
         public Guid ProductId { get; set; }
         [ForeignKey(nameof(ProductId))]
         public virtual Product Product { get; set; }
+        public int Star { get; set; }
+        public string Comment { get; set; }
     }
 }

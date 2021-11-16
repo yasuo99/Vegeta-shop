@@ -1,0 +1,57 @@
+﻿@model RegisterDTO
+@{
+    string GetButtonTitle(bool isValidOTP, bool isValidEmail)
+    {
+        return (isValidOTP && isValidEmail) ? "Hoàn thành" : "Tiếp theo";
+    }
+    var hiddenPhone = Model.IsValidOTP;
+    var hiddenEmail = (Model.IsValidOTP && !Model.IsValidEmail) ? false : true;
+}
+<form method="post" id="createForm">
+    @{
+        var isValidatedOTP = Model.IsValidOTP ? "true" : "false";
+        var isValidatedEmail = Model.IsValidEmail ? "true" : "false";
+        <input hidden type="text" name="IsValidOTP" value="@Model.IsValidOTP.ToString()" />
+        <input hidden type="text" name="IsValidEmail" value="@Model.IsValidEmail.ToString()" />
+        <input hidden type="number" name="Counter" value="@Model.Counter" id="counter" />
+        <h2>Đăng ký</h2>
+        <div class="form-group">
+            <div hidden-condition label="@Html.LabelFor(m => m.PhoneNumber)" type="text" condition="@hiddenPhone" name="PhoneNumber" value="@Model.PhoneNumber" auto-complete="off" css="form-control" placeholder="SĐT"></div>
+        </div>
+
+        <div class="form-group">
+            <div hidden-condition label="@Html.LabelFor(m => m.Email)" type="text" condition="@hiddenEmail" name="Email" value="@Model.Email" auto-complete="off" css="form-control" placeholder="SĐT"></div>
+        </div>
+        <div class="form-group">
+            <div hidden-condition label="@Html.LabelFor(m => m.Username)" type="text" condition="@hiddenEmail" name="Username" value="@Model.Username" auto-complete="off" css="form-control" placeholder="SĐT"></div>
+        </div>
+        <div class="form-group">
+            <div hidden-condition label="@Html.LabelFor(m => m.Password)" type="text" condition="@hiddenEmail" name="Password" value="@Model.Password" auto-complete="off" css="form-control" placeholder="SĐT"></div>
+        </div>
+        @if (Model.IsValidOTP && Model.IsValidEmail)
+        {
+            <div class="form-group">
+                @Html.LabelFor(m => m.Info.LastName)
+                @Html.TextBoxFor(e => e.Info.LastName, new { @class = "form-control", @placeHolder = "Họ" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Info.MiddleName)
+                @Html.TextBoxFor(e => e.Info.MiddleName, new { @class = "form-control", @placeHolder = "Tên đệm" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Info.FirstName)
+                @Html.TextBoxFor(e => e.Info.FirstName, new { @class = "form-control", @placeHolder = "Tên" })
+            </div>
+        }
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            <button id="create" class="btn btn-success rounded w-100" type="button" onclick="onSubmitCreate()">@GetButtonTitle(Model.IsValidOTP, Model.IsValidEmail)</button>
+        </div>
+    }
+
+</form>
+@section Scripts{
+    <script>
+
+    </script>
+}

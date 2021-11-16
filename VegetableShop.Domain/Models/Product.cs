@@ -12,8 +12,8 @@ namespace VegetableShop.Domain.Models
     {
         public Product()
         {
-            Carts = new HashSet<Cart>();
-            ProductImages = new HashSet<ProductImage>();
+            Carts = new List<Cart>();
+            ProductImages = new List<ProductImage>();
         }
         public string DisplayName { get; set; }
         public string Detail { get; set; }
@@ -24,7 +24,11 @@ namespace VegetableShop.Domain.Models
         public double PreviousPrice { get; set; }
         [NotMapped]
         public int SaleOffPercent => (int) (Price / PreviousPrice) * 100;
+        public bool IsPublish { get; set; }
         public virtual ICollection<Cart> Carts { get; set; }
         public virtual ICollection<ProductImage> ProductImages { get; set; }
+        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
+        public virtual ICollection<Question> Questions { get; set; }
+        public virtual ICollection<Review> Reviews { get; set; }
     }
 }

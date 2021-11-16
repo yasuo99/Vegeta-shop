@@ -1,4 +1,98 @@
 ﻿@page
 @model VegetableShop.Areas.Identity.Pages.Accounts.RegisterModel
 @{
+    ViewBag.Title = "Đăng ký tài khoản - Mua sắm thỏa thích";
+    bool isValidOTP = Model.RegisterDTO.IsValidOTP;
+    bool isValidEmail = Model.RegisterDTO.IsValidEmail;
+    Func<string> GetTitle = () =>
+    {
+        return "cc ne";
+    };
+}
+@functions{
+    string GetButtonTitle(bool isValidOTP, bool isValidEmail)
+    {
+        return (isValidOTP && isValidEmail) ? "Đăng ký" : "Tiếp tục";
+    }
+    string GetInputType(bool isValidOTP, bool isValidEmail)
+    {
+        return (isValidOTP && isValidEmail) ? "submit" : "button";
+    }
+    object OnClick(ref bool isValidOTP, ref bool isValidEmail)
+    {
+        if (!isValidOTP)
+        {
+            isValidOTP = true;
+        }
+        else
+        {
+            if (!isValidEmail)
+            {
+                isValidEmail = true;
+            }
+        }
+        return new { };
+    }
+}
+<div class="outside-form">
+    <div class="container form-group">
+        <div class="row">
+            <div class="col">
+                <img src="~/images/login-demo-2.jpg" class="mt-2 rounded" />
+            </div>
+            <div class="col p-2">
+                <div class="card">
+                    <div class="card-body">
+                        <div>
+                            <div id="registerForm">
+                                <partial name="_RegisterFormPartial" model="Model.RegisterDTO" />
+
+                            </div>
+                        </div>
+                        
+                        <p class="text-center mb-0">HOẶC</p>
+                        <div class="card-footer">
+                            <div class="d-flex justify-content-between">
+                                <button class="btn btn-primary rounded"><i class="fab fa-google"></i> Google</button>
+                                <button class="btn btn-primary rounded"><i class="fab fa-facebook-f"></i> Facebook</button>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            Bạn đã có tài khoản? <a asp-area="Identity" asp-page="Account/Login">Đăng nhập</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        function onSubmitCreate() {
+            var counter = $("#counter").val();
+            console.log(counter);
+            if (counter < 2) {
+                $.ajax({
+                    url: "",
+                    type: "POST",
+                    data: $("#createForm").serialize(),
+                    headers: {
+                        RequestVerificationToken:
+                            $('input:hidden[name="__RequestVerificationToken"]').val(),
+                    },
+                    dataType: "html",
+                    success: (data) => {
+                        counter++;
+                        $("#registerForm").html(data)
+                    }
+                })
+            } else {
+                $("#createForm").submit();
+            }
+        }
+     
+    </script>
 }

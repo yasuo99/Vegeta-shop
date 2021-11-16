@@ -10,15 +10,13 @@ namespace VegetableShop.Domain.Models
 {
     public class Address : AuditEntity<Guid>
     {
-        public Guid AccountId { get; set; }
-        [ForeignKey(nameof(AccountId))]
-        public virtual Account Account { get; set; }
         public string HomeNumber { get; set; }
         public string Village { get; set; }
         public string District { get; set; }
         public string Province { get; set; }
-
         public string FullAddress { get; set; }
+        public virtual ICollection<AccountAddress> Accounts { get; set; }
+        public virtual ICollection<ProviderAddress> Providers { get; set; }
         public Func<string, string, string, string, string> SuggestAddress = (string homeAddress, string village, string district, string province) =>
         {
             StringBuilder suggestAddress = new StringBuilder();
@@ -41,5 +39,4 @@ namespace VegetableShop.Domain.Models
             return suggestAddress.ToString();
         };
     }
-
 }

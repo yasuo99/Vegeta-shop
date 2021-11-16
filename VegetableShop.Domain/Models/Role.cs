@@ -9,6 +9,6 @@ namespace VegetableShop.Domain.Models
 {
     public class Role: IdentityRole<Guid>
     {
-        
+        public virtual ICollection<AccountRole> Accounts { get; set; }
     }
 }

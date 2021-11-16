@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VegetableShop.Areas.Admin.Controllers
+namespace VegetableShop.Domain.Enums
 {
-    public class DashboardControllers
+    public enum OtpPurpose
     {
-        
+        Login = 1,
+        Register = 2,
+        ResetPassword = 3
     }
 }

@@ -15,7 +15,7 @@ namespace VegetableShop.Domain.Models.BaseModel
         public TKey Id { get; set; }
         public DateTime CreateAt { get; set; }
         public string CreatedBy { get; set; }
-        public DateTime UpdatedAt { get; set; }
+        public DateTime ModifiedAt { get; set; }
         public string ModifiedBy { get; set; }
     }
 }
